@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.0)
 
 project(hello_world_test)
 
-if(DEFINED ENV{GITHUB_REPOSITORY} AND DEFINED ENV{GITHUB_SHA})
+if(DEFINED ENV{CPM_URL})
   include(../../cmake/cpm.cmake)
-  cpmaddpackage("gh:$ENV{GITHUB_REPOSITORY}#$ENV{GITHUB_SHA}")
+  cpmaddpackage("$ENV{CPM_URL}")
 else()
   add_subdirectory(../.. ${CMAKE_CURRENT_BINARY_DIR}/devel.cmake)
 endif()
