@@ -1,6 +1,8 @@
+#include <ok.hpp>
+
 int main() {
 #ifdef WITH_UNUSED
   int unused;
 #endif
-  return 0;
+  return ok<int>();
 }

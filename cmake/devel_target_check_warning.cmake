@@ -1,8 +1,18 @@
 function(devel_target_check_warning TARGET)
   cmake_parse_arguments(ARG "" "" "FLAGS;MSVC_FLAGS" ${ARGN})
-  if(MSVC)
-    target_compile_options(${TARGET} PRIVATE /WX /permissive- /W4 /w14640 /EHsc ${ARG_MSVC_FLAGS})
+
+  # Determine if the target is an interface library or not
+  get_target_property(TARGET_TYPE ${TARGET} TYPE)
+  if(${TARGET_TYPE} STREQUAL INTERFACE_LIBRARY)
+    set(TYPE INTERFACE)
   else()
-    target_compile_options(${TARGET} PRIVATE -Werror -Wall -Wextra -Wnon-virtual-dtor -Wpedantic ${ARG_FLAGS})
+    set(TYPE PRIVATE)
+  endif()
+
+  # Append warning flags to the compile options
+  if(MSVC)
+    target_compile_options(${TARGET} ${TYPE} /WX /permissive- /W4 /w14640 /EHsc ${ARG_MSVC_FLAGS})
+  else()
+    target_compile_options(${TARGET} ${TYPE} -Werror -Wall -Wextra -Wnon-virtual-dtor -Wpedantic ${ARG_FLAGS})
   endif()
 endfunction()
