@@ -15,3 +15,7 @@ devel_target_check_warning(correct)
 add_executable(incorrect EXCLUDE_FROM_ALL main.cpp)
 target_compile_definitions(incorrect PRIVATE WITH_UNUSED)
 devel_target_check_warning(incorrect)
+
+add_executable(with_parameters EXCLUDE_FROM_ALL main.cpp)
+target_compile_definitions(with_parameters PRIVATE WITH_UNUSED)
+devel_target_check_warning(with_parameters -Wno-unused-variable)

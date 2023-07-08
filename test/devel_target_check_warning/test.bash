@@ -29,6 +29,14 @@ if [ $? -eq 0 ]; then
 fi
 echo ::endgroup::
 
+echo ::group::Testing warning check with additional parameters...
+cmake --build $root/build --target with_parameters
+if [ $? -ne 0 ]; then
+  echo ::error::The build for the with_parameters target should fail.
+  let fails++
+fi
+echo ::endgroup::
+
 if [ $fails -gt 0 ]; then
   exit 1
 fi
