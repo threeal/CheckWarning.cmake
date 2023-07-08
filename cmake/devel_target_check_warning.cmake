@@ -1,3 +1,7 @@
 function(devel_target_check_warning target)
-  target_compile_options(${target} PRIVATE -Werror -Wall -Wextra -Wnon-virtual-dtor -Wpedantic ${ARGN})
+  if(MSVC)
+    target_compile_options(${target} PRIVATE /WX /permissive- /W4 /w14640 /EHsc ${ARGN})
+  else()
+    target_compile_options(${target} PRIVATE -Werror -Wall -Wextra -Wnon-virtual-dtor -Wpedantic ${ARGN})
+  endif()
 endfunction()
