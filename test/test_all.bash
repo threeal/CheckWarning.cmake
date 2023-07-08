@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
-root="$(cd "$(dirname "$0")" && pwd)"
+root=$(cd $(dirname $0) && pwd)
 
 let fails=0
-for dir in $root/*/ ; do
+for script in $(find $root -iname test.bash) ; do
+  dir=$(dirname $script)
   name=$(realpath --relative-to=$root $dir)
   echo ::group::testing $name...
-  cmake "$dir" -B "$dir/build"
+  $script
   if [ $? -ne 0 ]; then
     echo ::error::$name test failed
     let fails++
