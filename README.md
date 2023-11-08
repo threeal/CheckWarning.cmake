@@ -1,4 +1,4 @@
-# Devel.cmake
+# CheckWarning.cmake
 
 [![test status](https://img.shields.io/github/actions/workflow/status/threeal/Devel.cmake/test.yaml?branch=main)](https://github.com/threeal/Devel.cmake/actions/workflows/test.yaml)
 
