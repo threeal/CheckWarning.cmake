@@ -4,7 +4,7 @@
 [![license](https://img.shields.io/github/license/threeal/CheckWarning.cmake?style=flat-square)](./LICENSE)
 [![test status](https://img.shields.io/github/actions/workflow/status/threeal/CheckWarning.cmake/test.yaml?branch=main&style=flat-square)](https://github.com/threeal/CheckWarning.cmake/actions/workflows/test.yaml)
 
-CheckWarning.cmake is a [CMake](https://cmake.org) project that provides utility functions for checking compiler warnings during the build process of your project.
+CheckWarning.cmake is a [CMake](https://cmake.org) module that provides utility functions for checking compiler warnings during your project's build process. This module contains a `target_check_warning` function that helps in checking all recommended warnings on a given target.
 
 ## Integration
 
