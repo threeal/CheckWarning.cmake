@@ -1,8 +1,8 @@
-# Devel.cmake
+# CheckWarning.cmake
 
-[![test status](https://img.shields.io/github/actions/workflow/status/threeal/Devel.cmake/test.yaml?branch=main)](https://github.com/threeal/Devel.cmake/actions/workflows/test.yaml)
+[![test status](https://img.shields.io/github/actions/workflow/status/threeal/CheckWarning.cmake/test.yaml?branch=main)](https://github.com/threeal/CheckWarning.cmake/actions/workflows/test.yaml)
 
-Streamline your [CMake](https://cmake.org) project development with Devel.cmake. It provides a set of CMake functions for managing external package dependencies, formatting source code, and integrating static analysis.
+CheckWarning.cmake is a [CMake](https://cmake.org) project that provides utility functions for checking compiler warnings during the build process of your project.
 
 ## License
 

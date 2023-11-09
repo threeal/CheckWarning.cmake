@@ -1,4 +1,4 @@
-function(devel_target_check_warning TARGET)
+function(target_check_warning TARGET)
   cmake_parse_arguments(ARG "" "" "FLAGS;MSVC_FLAGS" ${ARGN})
 
   # Determine if the target is an interface library or not

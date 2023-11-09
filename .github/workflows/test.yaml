@@ -24,4 +24,4 @@ jobs:
           else
             export CPM_URL=gh:${{ github.repository }}#${{ github.sha }}
           fi
-          test/test_all.bash
+          test/test.bash
