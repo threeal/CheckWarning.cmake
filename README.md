@@ -6,6 +6,25 @@
 
 CheckWarning.cmake is a [CMake](https://cmake.org) project that provides utility functions for checking compiler warnings during the build process of your project.
 
+## Usage
+
+### Checking Warnings on a Target
+
+To enable all recommended warnings on a target and treat them as errors, use the `target_check_warning` function. This will cause the build process to fail when a warning is violated.
+
+```cmake
+add_executable(main main.cpp)
+target_check_warning(main)
+```
+
+### Ignoring Specific Warnings
+
+You can pass `FLAGS` (or `MSVC_FLAGS` on the MSVC compiler) to the `target_check_warning` function to ignore specific warnings on a target.
+
+```cmake
+target_check_warning(main FLAGS -Wno-unused-variable MSVC_FLAGS /wd4101)
+```
+
 ## License
 
 This project is licensed under the terms of the [MIT License](./LICENSE).
