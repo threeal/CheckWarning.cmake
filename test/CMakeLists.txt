@@ -6,7 +6,7 @@ if(DEFINED ENV{CPM_URL})
   include(../cmake/cpm.cmake)
   cpmaddpackage("$ENV{CPM_URL}")
 else()
-  add_subdirectory(.. ${CMAKE_CURRENT_BINARY_DIR}/devel.cmake)
+  add_subdirectory(.. ${CMAKE_CURRENT_BINARY_DIR}/CheckWarning)
 endif()
 
 add_library(lib INTERFACE)
