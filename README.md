@@ -6,6 +6,24 @@
 
 CheckWarning.cmake is a [CMake](https://cmake.org) project that provides utility functions for checking compiler warnings during the build process of your project.
 
+## Integration
+
+### Including the Script File
+
+You can integrate this module into your project by including the [`target_check_warning.cmake`](./cmake/target_check_warning.cmake) file in your project.
+
+```cmake
+include(target_check_warning.cmake)
+```
+
+### Using CPM.cmake
+
+Alternatively, you can use [CPM.cmake](https://github.com/cpm-cmake/CPM.cmake) to seamlessly integrate this module into your project.
+
+```cmake
+cpmaddpackage(gh:threeal/CheckWarning.cmake@1.0.0)
+```
+
 ## Usage
 
 ### Checking Warnings on a Target
