@@ -17,10 +17,4 @@ jobs:
 
       - name: Run tests
         shell: bash
-        run: |
-          if [ ${{ github.event_name }} == pull_request ]; then
-            export CPM_URL=gh:${{ github.repository }}#${{ github.event.pull_request.head.sha }}
-          else
-            export CPM_URL=gh:${{ github.repository }}#${{ github.sha }}
-          fi
-          test/test.bash
+        run: test/test.bash
