@@ -2,12 +2,7 @@ cmake_minimum_required(VERSION 3.0)
 
 project(CheckWarningTest)
 
-if(DEFINED ENV{CPM_URL})
-  include(../cmake/cpm.cmake)
-  cpmaddpackage("$ENV{CPM_URL}")
-else()
-  add_subdirectory(.. ${CMAKE_CURRENT_BINARY_DIR}/CheckWarning)
-endif()
+add_subdirectory(.. ${CMAKE_CURRENT_BINARY_DIR}/CheckWarning)
 
 add_library(lib INTERFACE)
 target_include_directories(lib INTERFACE include)
