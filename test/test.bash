@@ -32,7 +32,31 @@ echo '::endgroup::'
 echo '::group::Testing warning check with additional parameters...'
 cmake --build $root/build --target with_parameters
 if [ $? -ne 0 ]; then
-  echo '::error::The build for the with_parameters target should fail.'
+  echo '::error::The build for the with_parameters target should succeed.'
+  let fails++
+fi
+echo '::endgroup::'
+
+echo '::group::Testing warning check for success in C...'
+cmake --build $root/build --target correct_c
+if [ $? -ne 0 ]; then
+  echo '::error::The build for the correct_c target should succeed.'
+  let fails++
+fi
+echo ::endgroup::
+
+echo '::group::Testing warning check for failure in C...'
+cmake --build $root/build --target incorrect_c
+if [ $? -eq 0 ]; then
+  echo '::error::The build for the incorrect_c target should fail.'
+  let fails++
+fi
+echo '::endgroup::'
+
+echo '::group::Testing warning check with additional parameters in C...'
+cmake --build $root/build --target with_parameters_c
+if [ $? -ne 0 ]; then
+  echo '::error::The build for the with_parameters_c target should succeed.'
   let fails++
 fi
 echo '::endgroup::'
