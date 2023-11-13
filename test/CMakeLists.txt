@@ -21,3 +21,14 @@ add_executable(with_parameters EXCLUDE_FROM_ALL main.cpp)
 target_link_libraries(with_parameters PRIVATE lib)
 target_compile_definitions(with_parameters PRIVATE WITH_UNUSED)
 target_check_warning(with_parameters FLAGS -Wno-unused-variable MSVC_FLAGS /wd4101)
+
+add_executable(correct_c EXCLUDE_FROM_ALL main.c)
+target_check_warning(correct_c)
+
+add_executable(incorrect_c EXCLUDE_FROM_ALL main.c)
+target_compile_definitions(incorrect_c PRIVATE WITH_UNUSED)
+target_check_warning(incorrect_c)
+
+add_executable(with_parameters_c EXCLUDE_FROM_ALL main.c)
+target_compile_definitions(with_parameters_c PRIVATE WITH_UNUSED)
+target_check_warning(with_parameters_c FLAGS -Wno-unused-variable MSVC_FLAGS /wd4101)
