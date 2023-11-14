@@ -11,7 +11,7 @@ function(target_check_warning TARGET)
 
   # Append warning flags to the compile options
   if(MSVC)
-    target_compile_options(${TARGET} ${TYPE} /WX /permissive- /W4 /w14640 /EHsc ${ARG_MSVC_FLAGS})
+    target_compile_options(${TARGET} ${TYPE} /WX /permissive- /W4 /EHsc ${ARG_MSVC_FLAGS})
   else()
     target_compile_options(${TARGET} ${TYPE} -Werror -Wall -Wextra -Wpedantic $<$<COMPILE_LANGUAGE:CXX>:-Wnon-virtual-dtor> ${ARG_FLAGS})
   endif()
