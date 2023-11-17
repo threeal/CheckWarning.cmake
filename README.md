@@ -37,10 +37,10 @@ target_check_warning(main)
 
 ### Ignoring Specific Warnings
 
-You can pass `FLAGS` (or `MSVC_FLAGS` on the MSVC compiler) to the `target_check_warning` function to ignore specific warnings on a target.
+You can pass `FLAGS` to the `target_check_warning` function to ignore specific warnings on a target.
 
 ```cmake
-target_check_warning(main FLAGS -Wno-unused-variable MSVC_FLAGS /wd4101)
+target_check_warning(main FLAGS -Wno-unused-variable)
 ```
 
 ## License
