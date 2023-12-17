@@ -1,34 +1,44 @@
-cmake_minimum_required(VERSION 3.8)
+message(STATUS "Preparing for warning check testing")
+file(REMOVE_RECURSE ${CMAKE_CURRENT_SOURCE_DIR}/build)
+execute_process(
+  COMMAND cmake ${CMAKE_CURRENT_SOURCE_DIR}/sample -B ${CMAKE_CURRENT_SOURCE_DIR}/build
+  RESULT_VARIABLE RES
+  OUTPUT_QUIET
+  ERROR_VARIABLE ERR
+  COMMAND_ERROR_IS_FATAL ANY
+)
+if(NOT ${RES} EQUAL 0)
+  message(FATAL_ERROR "Failed to prepare for warning check testing: ${ERR}")
+endif()
 
-project(CheckWarningTest)
+add_test(
+  NAME "Testing warning check for success"
+  COMMAND cmake --build ${CMAKE_CURRENT_SOURCE_DIR}/build --target correct
+)
 
-add_subdirectory(.. ${CMAKE_CURRENT_BINARY_DIR}/CheckWarning)
+add_test(
+  NAME "Testing warning check for failure"
+  COMMAND cmake --build ${CMAKE_CURRENT_SOURCE_DIR}/build --target incorrect
+)
+set_tests_properties("Testing warning check for failure" PROPERTIES WILL_FAIL TRUE)
 
-add_library(lib INTERFACE)
-target_include_directories(lib INTERFACE include)
-target_check_warning(lib)
+add_test(
+  NAME "Testing warning check with additional parameters"
+  COMMAND cmake --build ${CMAKE_CURRENT_SOURCE_DIR}/build --target with_parameters
+)
 
-add_executable(correct EXCLUDE_FROM_ALL main.cpp)
-target_link_libraries(correct PRIVATE lib)
-target_check_warning(correct)
+add_test(
+  NAME "Testing warning check for success in C"
+  COMMAND cmake --build ${CMAKE_CURRENT_SOURCE_DIR}/build --target correct_c
+)
 
-add_executable(incorrect EXCLUDE_FROM_ALL main.cpp)
-target_link_libraries(incorrect PRIVATE lib)
-target_compile_definitions(incorrect PRIVATE WITH_UNUSED)
-target_check_warning(incorrect)
+add_test(
+  NAME "Testing warning check for failure in C"
+  COMMAND cmake --build ${CMAKE_CURRENT_SOURCE_DIR}/build --target incorrect_c
+)
+set_tests_properties("Testing warning check for failure in C" PROPERTIES WILL_FAIL TRUE)
 
-add_executable(with_parameters EXCLUDE_FROM_ALL main.cpp)
-target_link_libraries(with_parameters PRIVATE lib)
-target_compile_definitions(with_parameters PRIVATE WITH_UNUSED)
-target_check_warning(with_parameters FLAGS $<IF:$<BOOL:${MSVC}>,/wd4101,-Wno-unused-variable>)
-
-add_executable(correct_c EXCLUDE_FROM_ALL main.c)
-target_check_warning(correct_c)
-
-add_executable(incorrect_c EXCLUDE_FROM_ALL main.c)
-target_compile_definitions(incorrect_c PRIVATE WITH_UNUSED)
-target_check_warning(incorrect_c)
-
-add_executable(with_parameters_c EXCLUDE_FROM_ALL main.c)
-target_compile_definitions(with_parameters_c PRIVATE WITH_UNUSED)
-target_check_warning(with_parameters_c FLAGS $<IF:$<BOOL:${MSVC}>,/wd4101,-Wno-unused-variable>)
+add_test(
+  NAME "Testing warning check with additional parameters in C"
+  COMMAND cmake --build ${CMAKE_CURRENT_SOURCE_DIR}/build --target with_parameters_c
+)
