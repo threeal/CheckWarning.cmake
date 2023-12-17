@@ -15,6 +15,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4.1.1
 
-      - name: Run tests
-        shell: bash
-        run: test/test.bash
+      - name: Configure Project
+        uses: threeal/cmake-action@v1.3.0
+        with:
+          options: BUILD_TESTING=ON
+
+      - name: Test Project
+        run: ctest -C debug --output-on-failure --test-dir build --no-tests=error
