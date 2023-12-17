@@ -35,12 +35,13 @@ add_executable(main main.cpp)
 target_check_warning(main)
 ```
 
-### Ignoring Specific Warnings
+### Ignoring Specific Warnings on a Target
 
-You can pass `FLAGS` to the `target_check_warning` function to ignore specific warnings on a target.
+You can call the `target_compile_options` function to ignore specific warnings on a target.
 
 ```cmake
-target_check_warning(main FLAGS -Wno-unused-variable)
+target_check_warning(main)
+target_compile_options(main PRIVATE -Wno-unused-variable)
 ```
 
 ## License
