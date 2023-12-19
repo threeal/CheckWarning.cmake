@@ -12,3 +12,8 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR AND BUILD_TESTING)
   enable_testing()
   add_subdirectory(test)
 endif()
+
+install(
+  FILES cmake/CheckWarning.cmake
+  DESTINATION lib/cmake
+)
