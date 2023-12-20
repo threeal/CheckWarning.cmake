@@ -1,8 +1,8 @@
-#include <ok.hpp>
+#include <success.h>
 
 int main() {
 #ifdef WITH_UNUSED
   int unused;
 #endif
-  return ok<int>();
+  return success;
 }

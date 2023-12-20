@@ -8,11 +8,12 @@ add_library(lib INTERFACE)
 target_include_directories(lib INTERFACE include)
 target_check_warning(lib)
 
-add_executable(main main.cpp)
+add_executable(main src/main.cpp)
 target_link_libraries(main PRIVATE lib)
 target_check_warning(main)
 
-add_executable(main_c main.c)
+add_executable(main_c src/main.c)
+target_link_libraries(main_c PRIVATE lib)
 target_check_warning(main_c)
 
 foreach(TARGET main main_c)
