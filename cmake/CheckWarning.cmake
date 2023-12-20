@@ -16,3 +16,7 @@ function(target_check_warning TARGET)
   # Append warning flags to the compile options
   target_compile_options(${TARGET} ${TYPE} ${WARNING_FLAGS})
 endfunction()
+
+function(add_check_warning)
+  add_compile_options(${WARNING_FLAGS})
+endfunction()
