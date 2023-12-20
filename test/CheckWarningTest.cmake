@@ -3,7 +3,7 @@ add_test(
   COMMAND
     cmake
       -D CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}
-      -P ${CMAKE_CURRENT_LIST_DIR}/BuildSample.cmake
+      -P ${CMAKE_CURRENT_LIST_DIR}/sample/Build.cmake
 )
 
 add_test(
@@ -13,7 +13,7 @@ add_test(
       -D CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}
       -D WITH_UNUSED=TRUE
       -D BUILD_SHOULD_FAIL=TRUE
-      -P ${CMAKE_CURRENT_LIST_DIR}/BuildSample.cmake
+      -P ${CMAKE_CURRENT_LIST_DIR}/sample/Build.cmake
 )
 
 add_test(
@@ -23,5 +23,5 @@ add_test(
       -D CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}
       -D WITH_UNUSED=TRUE
       -D IGNORE_UNUSED=TRUE
-      -P ${CMAKE_CURRENT_LIST_DIR}/BuildSample.cmake
+      -P ${CMAKE_CURRENT_LIST_DIR}/sample/Build.cmake
 )

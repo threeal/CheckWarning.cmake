@@ -1,8 +1,6 @@
-set(SAMPLE_DIR ${CMAKE_CURRENT_LIST_DIR}/sample)
-
-if(EXISTS ${SAMPLE_DIR}/build)
+if(EXISTS ${CMAKE_CURRENT_LIST_DIR}/build)
   message(STATUS "Removing build directory")
-  file(REMOVE_RECURSE ${SAMPLE_DIR}/build)
+  file(REMOVE_RECURSE ${CMAKE_CURRENT_LIST_DIR}/build)
 endif()
 
 message(STATUS "Configuring sample project")
@@ -14,7 +12,7 @@ if(IGNORE_UNUSED)
   list(APPEND CONFIGURE_ARGS -D IGNORE_UNUSED=${IGNORE_UNUSED})
 endif()
 execute_process(
-  COMMAND cmake ${SAMPLE_DIR} -B ${SAMPLE_DIR}/build ${CONFIGURE_ARGS}
+  COMMAND cmake ${CMAKE_CURRENT_LIST_DIR} -B ${CMAKE_CURRENT_LIST_DIR}/build ${CONFIGURE_ARGS}
   RESULT_VARIABLE RES
 )
 if(NOT ${RES} EQUAL 0)
@@ -23,7 +21,7 @@ endif()
 
 message(STATUS "Building sample project")
 execute_process(
-  COMMAND cmake --build ${SAMPLE_DIR}/build
+  COMMAND cmake --build ${CMAKE_CURRENT_LIST_DIR}/build
   RESULT_VARIABLE RES
 )
 if(BUILD_SHOULD_FAIL)
