@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 
 project(CheckWarningTest)
 
-add_subdirectory(../.. ${CMAKE_CURRENT_BINARY_DIR}/CheckWarning)
+include(CheckWarning)
 
 add_library(lib INTERFACE)
 target_include_directories(lib INTERFACE include)
