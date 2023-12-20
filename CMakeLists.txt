@@ -6,7 +6,8 @@ project(
   DESCRIPTION "Check for compiler warnings in your CMake project"
   HOMEPAGE_URL https://github.com/threeal/CheckWarning.cmake/)
 
-include(cmake/CheckWarning.cmake)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+include(CheckWarning)
 
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR AND BUILD_TESTING)
   enable_testing()
