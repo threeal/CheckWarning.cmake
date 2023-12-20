@@ -1,5 +1,10 @@
 set(SAMPLE_DIR ${CMAKE_CURRENT_LIST_DIR}/sample)
 
+if(EXISTS ${SAMPLE_DIR}/build)
+  message(STATUS "Removing build directory")
+  file(REMOVE_RECURSE ${SAMPLE_DIR}/build)
+endif()
+
 message(STATUS "Configuring sample project")
 list(APPEND CONFIGURE_ARGS -D CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH})
 if(WITH_UNUSED)
