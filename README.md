@@ -38,11 +38,22 @@ target_check_warning(main)
 
 ### Ignoring Specific Warnings on a Target
 
-You can call the `target_compile_options` function to ignore specific warnings on a target.
+You can use the `target_compile_options` function to ignore specific warnings on a target.
 
 ```cmake
 target_check_warning(main)
 target_compile_options(main PRIVATE -Wno-unused-variable)
+```
+
+### Checking Warnings Globally
+
+To enable all recommended warnings on all targets in the directory, use the `add_check_warning` function. This function behaves the same as the `target_check_warning` function.
+
+```cmake
+add_check_warning()
+
+add_library(lib lib.cpp)
+add_executable(main main.cpp)
 ```
 
 ## License
