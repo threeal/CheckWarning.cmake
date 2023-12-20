@@ -11,10 +11,10 @@ CheckWarning.cmake is a [CMake](https://cmake.org) module that provides utility 
 
 ### Including the Script File
 
-You can integrate this module into your project by including the [`target_check_warning.cmake`](./cmake/target_check_warning.cmake) file in your project.
+You can integrate this module into your project by including the [CheckWarning.cmake](./cmake/CheckWarning.cmake) file in your project.
 
 ```cmake
-include(target_check_warning.cmake)
+include(CheckWarning)
 ```
 
 ### Using CPM.cmake
