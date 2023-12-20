@@ -1,3 +1,9 @@
+if(MSVC)
+  set(WARNING_FLAGS /WX /permissive- /W4 /EHsc)
+else()
+  set(WARNING_FLAGS -Werror -Wall -Wextra -Wpedantic)
+endif()
+
 function(target_check_warning TARGET)
   # Determine if the target is an interface library or not
   get_target_property(TARGET_TYPE ${TARGET} TYPE)
@@ -8,9 +14,5 @@ function(target_check_warning TARGET)
   endif()
 
   # Append warning flags to the compile options
-  if(MSVC)
-    target_compile_options(${TARGET} ${TYPE} /WX /permissive- /W4 /EHsc)
-  else()
-    target_compile_options(${TARGET} ${TYPE} -Werror -Wall -Wextra -Wpedantic)
-  endif()
+  target_compile_options(${TARGET} ${TYPE} ${WARNING_FLAGS})
 endfunction()
