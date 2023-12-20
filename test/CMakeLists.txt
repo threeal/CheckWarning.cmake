@@ -13,32 +13,16 @@ endif()
 
 add_test(
   NAME "Testing warning check for success"
-  COMMAND cmake --build ${CMAKE_CURRENT_SOURCE_DIR}/build --target correct
+  COMMAND cmake --build ${CMAKE_CURRENT_SOURCE_DIR}/build --target correct --target correct_c
 )
 
 add_test(
   NAME "Testing warning check for failure"
-  COMMAND cmake --build ${CMAKE_CURRENT_SOURCE_DIR}/build --target incorrect
+  COMMAND cmake --build ${CMAKE_CURRENT_SOURCE_DIR}/build --target incorrect --target incorrect_c
 )
 set_tests_properties("Testing warning check for failure" PROPERTIES WILL_FAIL TRUE)
 
 add_test(
   NAME "Testing warning check with additional parameters"
-  COMMAND cmake --build ${CMAKE_CURRENT_SOURCE_DIR}/build --target with_parameters
-)
-
-add_test(
-  NAME "Testing warning check for success in C"
-  COMMAND cmake --build ${CMAKE_CURRENT_SOURCE_DIR}/build --target correct_c
-)
-
-add_test(
-  NAME "Testing warning check for failure in C"
-  COMMAND cmake --build ${CMAKE_CURRENT_SOURCE_DIR}/build --target incorrect_c
-)
-set_tests_properties("Testing warning check for failure in C" PROPERTIES WILL_FAIL TRUE)
-
-add_test(
-  NAME "Testing warning check with additional parameters in C"
-  COMMAND cmake --build ${CMAKE_CURRENT_SOURCE_DIR}/build --target with_parameters_c
+  COMMAND cmake --build ${CMAKE_CURRENT_SOURCE_DIR}/build --target with_parameters --target with_parameters_c
 )
