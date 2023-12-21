@@ -5,7 +5,8 @@
 [![build status](https://img.shields.io/github/actions/workflow/status/threeal/CheckWarning.cmake/build.yaml?branch=main&style=flat-square)](https://github.com/threeal/CheckWarning.cmake/actions/workflows/build.yaml)
 [![test status](https://img.shields.io/github/actions/workflow/status/threeal/CheckWarning.cmake/test.yaml?branch=main&style=flat-square)](https://github.com/threeal/CheckWarning.cmake/actions/workflows/test.yaml)
 
-CheckWarning.cmake is a [CMake](https://cmake.org) module that provides utility functions for checking compiler warnings during your project's build process. This module contains a `target_check_warning` function that helps in checking all recommended warnings on a given target.
+CheckWarning.cmake is a [CMake](https://cmake.org) module that provides utility functions for checking compiler warnings during your project's build process.
+This module mainly contains two functions: a `target_check_warning` function that assists in checking all recommended warnings on a given target, and an `add_check_warning` function that behaves like `target_check_warning` but affects all targets globally in the directory.
 
 ## Integration
 
@@ -38,11 +39,22 @@ target_check_warning(main)
 
 ### Ignoring Specific Warnings on a Target
 
-You can call the `target_compile_options` function to ignore specific warnings on a target.
+You can use the `target_compile_options` function to ignore specific warnings on a target.
 
 ```cmake
 target_check_warning(main)
 target_compile_options(main PRIVATE -Wno-unused-variable)
+```
+
+### Checking Warnings Globally
+
+To enable all recommended warnings on all targets in the directory, use the `add_check_warning` function. This function behaves the same as the `target_check_warning` function.
+
+```cmake
+add_check_warning()
+
+add_library(lib lib.cpp)
+add_executable(main main.cpp)
 ```
 
 ## License
