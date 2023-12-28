@@ -4,7 +4,9 @@ project(
   CheckWarning
   VERSION 2.0.1
   DESCRIPTION "Check for compiler warnings in your CMake project"
-  HOMEPAGE_URL https://github.com/threeal/CheckWarning.cmake/)
+  HOMEPAGE_URL https://github.com/threeal/CheckWarning.cmake/
+  LANGUAGES NONE
+)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 include(CheckWarning)
