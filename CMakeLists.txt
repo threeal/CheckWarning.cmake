@@ -18,5 +18,5 @@ endif()
 
 install(
   FILES cmake/CheckWarning.cmake
-  DESTINATION lib/cmake
+  DESTINATION lib/cmake/CheckWarning
 )
