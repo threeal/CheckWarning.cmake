@@ -16,7 +16,16 @@ if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR AND BUILD_TESTING)
   include(test/CheckWarningTest.cmake)
 endif()
 
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+  CheckWarningConfigVersion.cmake
+  COMPATIBILITY SameMajorVersion
+)
+
 install(
-  FILES cmake/CheckWarning.cmake
-  DESTINATION lib/cmake
+  FILES
+    cmake/CheckWarning.cmake
+    cmake/CheckWarningConfig.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/CheckWarningConfigVersion.cmake
+  DESTINATION lib/cmake/CheckWarning
 )
