@@ -1,3 +1,5 @@
+include_guard(GLOBAL)
+
 # Function to get warning flags based on the compiler type.
 # Arguments:
 #   - VAR: The variable for which to store the warning flags.
