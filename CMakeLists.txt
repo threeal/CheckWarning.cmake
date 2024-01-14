@@ -20,7 +20,7 @@ endif()
 if(NOT SUBPROJECT)
   if(BUILD_TESTING)
     enable_testing()
-    include(test/CheckWarningTest.cmake)
+    add_subdirectory(test)
   endif()
 
   include(CMakePackageConfigHelpers)
