@@ -5,11 +5,6 @@ endif()
 
 function(reconfigure_sample)
   cmake_parse_arguments(ARG "USE_GLOBAL;WITH_UNUSED;IGNORE_UNUSED" "" "" ${ARGN})
-  if(EXISTS ${CMAKE_CURRENT_LIST_DIR}/sample/build)
-    message(STATUS "Removing build directory")
-    file(REMOVE_RECURSE ${CMAKE_CURRENT_LIST_DIR}/sample/build)
-  endif()
-
   message(STATUS "Configuring sample project")
   if(ARG_USE_GLOBAL)
     list(APPEND CONFIGURE_ARGS -D USE_GLOBAL=TRUE)
@@ -25,6 +20,7 @@ function(reconfigure_sample)
       -B ${CMAKE_CURRENT_LIST_DIR}/sample/build
       -D CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}
       ${CONFIGURE_ARGS}
+      --fresh
       ${CMAKE_CURRENT_LIST_DIR}/sample
     ERROR_VARIABLE ERR
     RESULT_VARIABLE RES
