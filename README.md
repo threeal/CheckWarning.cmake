@@ -23,7 +23,7 @@ include(CheckWarning)
 Alternatively, you can use [CPM.cmake](https://github.com/cpm-cmake/CPM.cmake) to seamlessly integrate this module into your project.
 
 ```cmake
-cpmaddpackage(gh:threeal/CheckWarning.cmake@2.1.0)
+cpmaddpackage(gh:threeal/CheckWarning.cmake@2.1.1)
 include(CheckWarning)
 ```
 
