@@ -5,7 +5,7 @@ endif()
 
 function(reconfigure_sample)
   cmake_parse_arguments(ARG "USE_GLOBAL;WITH_UNUSED;IGNORE_UNUSED" "" "" ${ARGN})
-  message(STATUS "Configuring sample project")
+  message(STATUS "Reconfiguring sample project")
   if(ARG_USE_GLOBAL)
     list(APPEND CONFIGURE_ARGS -D USE_GLOBAL=TRUE)
   endif()
@@ -25,7 +25,7 @@ function(reconfigure_sample)
     RESULT_VARIABLE RES
   )
   if(NOT RES EQUAL 0)
-    message(FATAL_ERROR "Failed to configure sample project")
+    message(FATAL_ERROR "Failed to reconfigure sample project")
   endif()
 endfunction()
 
