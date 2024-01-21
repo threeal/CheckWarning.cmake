@@ -20,7 +20,7 @@ endfunction()
 function(target_check_warning TARGET)
   # Determine if the target is an interface library or not.
   get_target_property(TARGET_TYPE ${TARGET} TYPE)
-  if(${TARGET_TYPE} STREQUAL INTERFACE_LIBRARY)
+  if(TARGET_TYPE STREQUAL INTERFACE_LIBRARY)
     set(TYPE INTERFACE)
   else()
     set(TYPE PRIVATE)
