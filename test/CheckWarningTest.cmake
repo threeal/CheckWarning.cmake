@@ -22,11 +22,10 @@ function(reconfigure_sample)
       ${CONFIGURE_ARGS}
       --fresh
       ${CMAKE_CURRENT_LIST_DIR}/sample
-    ERROR_VARIABLE ERR
     RESULT_VARIABLE RES
   )
   if(NOT RES EQUAL 0)
-    message(FATAL_ERROR "Failed to configure sample project: ${ERR}")
+    message(FATAL_ERROR "Failed to configure sample project")
   endif()
 endfunction()
 
@@ -35,7 +34,6 @@ function(build_sample)
   message(STATUS "Building sample project")
   execute_process(
     COMMAND ${CMAKE_COMMAND} --build ${CMAKE_CURRENT_LIST_DIR}/sample/build
-    ERROR_VARIABLE ERR
     RESULT_VARIABLE RES
   )
   if(ARG_SHOULD_FAIL)
@@ -44,7 +42,7 @@ function(build_sample)
     endif()
   else()
     if(NOT RES EQUAL 0)
-      message(FATAL_ERROR "Failed to build sample project: ${ERR}")
+      message(FATAL_ERROR "Failed to build sample project")
     endif()
   endif()
 endfunction()
