@@ -12,10 +12,10 @@ endfunction()
 
 add_cmake_test(
   CheckWarningTest.cmake
-  "Testing warning check for success"
-  "Testing global warning check for success"
-  "Testing warning check for failure"
-  "Testing global warning check for failure"
-  "Testing warning check with failure but ignored"
-  "Testing global warning check with failure but ignored"
+  "Check warning for success"
+  "Check warning globally for success"
+  "Check warning for failure"
+  "Check warning globally for failure"
+  "Check warning for failure but ignored"
+  "Check warning globally for failure but ignored"
 )
