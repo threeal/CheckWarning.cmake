@@ -11,7 +11,7 @@ function(reconfigure_sample)
     list(APPEND CONFIGURE_ARGS -D IGNORE_UNUSED=TRUE)
   endif()
   execute_process(
-    COMMAND ${CMAKE_COMMAND}
+    COMMAND "${CMAKE_COMMAND}"
       -B ${CMAKE_CURRENT_LIST_DIR}/sample/build
       -D CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}
       ${CONFIGURE_ARGS}
@@ -28,7 +28,7 @@ function(build_sample)
   cmake_parse_arguments(ARG SHOULD_FAIL "" "" ${ARGN})
   message(STATUS "Building sample project")
   execute_process(
-    COMMAND ${CMAKE_COMMAND} --build ${CMAKE_CURRENT_LIST_DIR}/sample/build
+    COMMAND "${CMAKE_COMMAND}" --build ${CMAKE_CURRENT_LIST_DIR}/sample/build
     RESULT_VARIABLE RES
   )
   if(ARG_SHOULD_FAIL)
