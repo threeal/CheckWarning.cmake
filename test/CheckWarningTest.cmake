@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.5)
+
 function(reconfigure_sample)
   cmake_parse_arguments(ARG "USE_GLOBAL;WITH_UNUSED;IGNORE_UNUSED" "" "" ${ARGN})
   message(STATUS "Reconfiguring sample project")
