@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
 function(reconfigure_sample)
-  cmake_parse_arguments(ARG "USE_GLOBAL;WITH_UNUSED;IGNORE_UNUSED" "" "" ${ARGN})
+  cmake_parse_arguments(PARSE_ARGV 0 ARG "USE_GLOBAL;WITH_UNUSED;IGNORE_UNUSED" "" "")
   message(STATUS "Reconfiguring sample project")
   if(ARG_USE_GLOBAL)
     list(APPEND CONFIGURE_ARGS -D USE_GLOBAL=TRUE)
@@ -27,7 +27,7 @@ function(reconfigure_sample)
 endfunction()
 
 function(build_sample)
-  cmake_parse_arguments(ARG SHOULD_FAIL "" "" ${ARGN})
+  cmake_parse_arguments(PARSE_ARGV 0 ARG SHOULD_FAIL "" "")
   message(STATUS "Building sample project")
   execute_process(
     COMMAND "${CMAKE_COMMAND}" --build ${CMAKE_CURRENT_LIST_DIR}/sample/build
