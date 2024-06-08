@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.5)
 
+file(
+  DOWNLOAD https://threeal.github.io/assertion-cmake/v0.2.0
+    ${CMAKE_BINARY_DIR}/Assertion.cmake
+  EXPECTED_MD5 4ee0e5217b07442d1a31c46e78bb5fac)
+include(${CMAKE_BINARY_DIR}/Assertion.cmake)
+
 function(reconfigure_sample)
   cmake_parse_arguments(PARSE_ARGV 0 ARG "USE_GLOBAL;WITH_UNUSED;IGNORE_UNUSED" "" "")
   message(STATUS "Reconfiguring sample project")
@@ -12,35 +18,24 @@ function(reconfigure_sample)
   if(ARG_IGNORE_UNUSED)
     list(APPEND CONFIGURE_ARGS -D IGNORE_UNUSED=TRUE)
   endif()
-  execute_process(
+  assert_execute_process(
     COMMAND "${CMAKE_COMMAND}"
       -B ${CMAKE_CURRENT_LIST_DIR}/sample/build
       -D CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH}
       ${CONFIGURE_ARGS}
       --fresh
-      ${CMAKE_CURRENT_LIST_DIR}/sample
-    RESULT_VARIABLE RES
-  )
-  if(NOT RES EQUAL 0)
-    message(FATAL_ERROR "Failed to reconfigure sample project")
-  endif()
+      ${CMAKE_CURRENT_LIST_DIR}/sample)
 endfunction()
 
 function(build_sample)
   cmake_parse_arguments(PARSE_ARGV 0 ARG SHOULD_FAIL "" "")
-  message(STATUS "Building sample project")
-  execute_process(
-    COMMAND "${CMAKE_COMMAND}" --build ${CMAKE_CURRENT_LIST_DIR}/sample/build
-    RESULT_VARIABLE RES
-  )
   if(ARG_SHOULD_FAIL)
-    if(RES EQUAL 0)
-      message(FATAL_ERROR "Sample project build should be failed")
-    endif()
+    assert_execute_process(
+      COMMAND "${CMAKE_COMMAND}" --build ${CMAKE_CURRENT_LIST_DIR}/sample/build
+      ERROR ".*")
   else()
-    if(NOT RES EQUAL 0)
-      message(FATAL_ERROR "Failed to build sample project")
-    endif()
+    assert_execute_process(
+      COMMAND "${CMAKE_COMMAND}" --build ${CMAKE_CURRENT_LIST_DIR}/sample/build)
   endif()
 endfunction()
 
