@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.8)
 project(Sample)
 
 find_package(CheckWarning REQUIRED PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../../cmake)
-include(CheckWarning)
 
 if(USE_GLOBAL)
   add_check_warning()
