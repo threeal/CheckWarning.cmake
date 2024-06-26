@@ -19,7 +19,6 @@ Alternatively, you can use [CPM.cmake](https://github.com/cpm-cmake/CPM.cmake) t
 
 ```cmake
 cpmaddpackage(gh:threeal/CheckWarning.cmake@2.1.1)
-include(CheckWarning)
 ```
 
 ## Usage
