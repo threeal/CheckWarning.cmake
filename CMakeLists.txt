@@ -8,14 +8,17 @@ project(
   LANGUAGES NONE
 )
 
+option(CHECK_WARNING_ENABLE_INSTALL "Enable install targets."
+  "${PROJECT_IS_TOP_LEVEL}")
+
 include(cmake/CheckWarning.cmake)
 
-if(PROJECT_IS_TOP_LEVEL)
-  if(BUILD_TESTING)
-    enable_testing()
-    add_subdirectory(test)
-  endif()
+if(PROJECT_IS_TOP_LEVEL AND BUILD_TESTING)
+  enable_testing()
+  add_subdirectory(test)
+endif()
 
+if(CHECK_WARNING_ENABLE_INSTALL)
   include(CMakePackageConfigHelpers)
   write_basic_package_version_file(
     CheckWarningConfigVersion.cmake
