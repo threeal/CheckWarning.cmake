@@ -16,7 +16,11 @@ include(cmake/CheckWarning.cmake)
 
 if(CHECK_WARNING_ENABLE_TESTS)
   enable_testing()
-  add_subdirectory(test)
+
+  add_test(
+    NAME check_warning.cmake
+    COMMAND "${CMAKE_COMMAND}"
+      -P ${CMAKE_CURRENT_SOURCE_DIR}/test/check_warning.cmake)
 endif()
 
 if(CHECK_WARNING_ENABLE_INSTALL)
