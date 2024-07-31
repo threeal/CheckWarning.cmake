@@ -1,6 +1,6 @@
 #include <success.h>
 
-int main() {
+int main(void) {
 #ifdef WITH_UNUSED
   int unused;
 #endif
