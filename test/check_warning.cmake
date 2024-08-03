@@ -1,11 +1,3 @@
-cmake_minimum_required(VERSION 3.5)
-
-file(
-  DOWNLOAD https://github.com/threeal/assertion-cmake/releases/download/v1.0.0/Assertion.cmake
-    ${CMAKE_BINARY_DIR}/Assertion.cmake
-  EXPECTED_MD5 1d8ec589d6cc15772581bf77eb3873ff)
-include(${CMAKE_BINARY_DIR}/Assertion.cmake)
-
 function(reconfigure_sample)
   cmake_parse_arguments(PARSE_ARGV 0 ARG "USE_GLOBAL;WITH_UNUSED;IGNORE_UNUSED" "" "")
   message(STATUS "Reconfiguring sample project")
@@ -38,34 +30,32 @@ function(build_sample)
   endif()
 endfunction()
 
-function("Check warning for success")
+section("it should check warning for success")
   reconfigure_sample()
   build_sample()
-endfunction()
+endsection()
 
-function("Check warning globally for success")
+section("it should check warning globally for success")
   reconfigure_sample(USE_GLOBAL)
   build_sample()
-endfunction()
+endsection()
 
-function("Check warning for failure")
+section("it should check warning for failure")
   reconfigure_sample(WITH_UNUSED)
   build_sample(SHOULD_FAIL)
-endfunction()
+endsection()
 
-function("Check warning globally for failure")
+section("it should check warning globally for failure")
   reconfigure_sample(USE_GLOBAL WITH_UNUSED)
   build_sample(SHOULD_FAIL)
-endfunction()
+endsection()
 
-function("Check warning for failure but ignored")
+section("it should check warning for failure but ignored")
   reconfigure_sample(WITH_UNUSED IGNORE_UNUSED)
   build_sample()
-endfunction()
+endsection()
 
-function("Check warning globally for failure but ignored")
+section("it should check warning globally for failure but ignored")
   reconfigure_sample(USE_GLOBAL WITH_UNUSED IGNORE_UNUSED)
   build_sample()
-endfunction()
-
-cmake_language(CALL "${TEST_COMMAND}")
+endsection()
