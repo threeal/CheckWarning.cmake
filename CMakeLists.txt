@@ -18,12 +18,7 @@ include(cmake/CheckWarning.cmake)
 if(CHECK_WARNING_ENABLE_TESTS)
   enable_testing()
 
-  file(
-    DOWNLOAD https://github.com/threeal/assertion-cmake/releases/download/v1.0.0/Assertion.cmake
-      ${CMAKE_BINARY_DIR}/Assertion.cmake
-    EXPECTED_MD5 1d8ec589d6cc15772581bf77eb3873ff)
-  include(${CMAKE_BINARY_DIR}/Assertion.cmake)
-
+  find_package(Assertion 1.0.0 REQUIRED)
   assertion_add_test(test/check_warning.cmake)
 endif()
 
