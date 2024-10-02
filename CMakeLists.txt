@@ -9,8 +9,9 @@ project(
 )
 
 option(CHECK_WARNING_ENABLE_TESTS "Enable test targets.")
-option(CHECK_WARNING_ENABLE_INSTALL "Enable install targets."
-  "${PROJECT_IS_TOP_LEVEL}")
+option(CHECK_WARNING_ENABLE_INSTALL "Enable install targets." "${PROJECT_IS_TOP_LEVEL}")
+
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 include(cmake/CheckWarning.cmake)
 
