@@ -13,6 +13,11 @@ option(CHECK_WARNING_ENABLE_INSTALL "Enable install targets." "${PROJECT_IS_TOP_
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
+# Prefer system packages over the find modules provided by this project.
+if(NOT DEFINED CMAKE_FIND_PACKAGE_PREFER_CONFIG)
+  set(CMAKE_FIND_PACKAGE_PREFER_CONFIG TRUE)
+endif()
+
 include(cmake/CheckWarning.cmake)
 
 if(CHECK_WARNING_ENABLE_TESTS)
