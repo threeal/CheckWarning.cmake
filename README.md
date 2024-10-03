@@ -61,6 +61,45 @@ get_warning_flags(FLAGS)
 message("Warning flags: ${FLAGS}")
 ```
 
+## API Reference
+
+### `get_warning_flags`
+
+Retrieves warning flags based on the current compiler.
+
+```cmake
+get_warning_flags(<output_var>)
+```
+
+This function retrieves the warning flags for a specific compiler and saves them to a variable named `<output_var>`. The function determines the current compiler using the [`CMAKE_<LANG>_COMPILER_ID`](https://cmake.org/cmake/help/v3.21/variable/CMAKE_LANG_COMPILER_ID.html) variable and retrieves the warning flags for that compiler, as specified in the following table:
+
+| Compiler     | Warning Flags                      |
+| ------------ | ---------------------------------- |
+| MSVC         | `/WX /permissive- /W4 /EHsc`       |
+| GNU or Clang | `-Werror -Wall -Wextra -Wpedantic` |
+
+For compilers not specified in the table above, this function will send a fatal error message explaining that it does not support that compiler.
+
+### `target_check_warning`
+
+Enables warning checks on a specific target.
+
+```cmake
+target_check_warning(<target>)
+```
+
+This function enables warning checks on the `<target>` by appending warning flags from the [`get_warning_flags`](#get_warning_flags) function to the compile options of that target. It is equivalent to calling the [`target_compile_options`](https://cmake.org/cmake/help/v3.21/command/target_compile_options.html) command on the target using the warning flags.
+
+### `add_check_warning`
+
+Enables warning checks on all targets in the current directory.
+
+```cmake
+add_check_warning()
+```
+
+This function enables warning checks on all targets in the current directory by appending warning flags from the [`get_warning_flags`](#get_warning_flags) function to the default compile options. It is equivalent to calling the [`add_compile_options`](https://cmake.org/cmake/help/v3.21/command/add_compile_options.html) command using the warning flags.
+
 ## License
 
 This project is licensed under the terms of the [MIT License](./LICENSE).
