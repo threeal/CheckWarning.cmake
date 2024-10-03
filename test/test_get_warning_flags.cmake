@@ -20,3 +20,12 @@ section("it should retrieve warning flags for Clang")
   get_warning_flags(FLAGS)
   assert("${FLAGS}" STREQUAL "-Werror;-Wall;-Wextra;-Wpedantic")
 endsection()
+
+section("it should fail to retrieve warning flags for unsupported compilers")
+  set(CMAKE_CXX_COMPILER_ID unsupported)
+
+  assert_fatal_error(
+    CALL get_warning_flags FLAGS
+    MESSAGE "CheckWarning: Unsupported compiler for retrieving "
+      "warning flags: unsupported")
+endsection()
