@@ -4,9 +4,8 @@ project(
   CheckWarning
   VERSION 2.1.1
   DESCRIPTION "Check for compiler warnings in your CMake project"
-  HOMEPAGE_URL https://github.com/threeal/CheckWarning.cmake/
-  LANGUAGES NONE
-)
+  HOMEPAGE_URL https://github.com/threeal/CheckWarning.cmake
+  LANGUAGES NONE)
 
 option(CHECK_WARNING_ENABLE_TESTS "Enable test targets.")
 option(CHECK_WARNING_ENABLE_INSTALL "Enable install targets." "${PROJECT_IS_TOP_LEVEL}")
@@ -29,17 +28,12 @@ endif()
 
 if(CHECK_WARNING_ENABLE_INSTALL)
   include(CMakePackageConfigHelpers)
-  write_basic_package_version_file(
-    cmake/CheckWarningConfigVersion.cmake
-    COMPATIBILITY SameMajorVersion
-    ARCH_INDEPENDENT
-  )
+  write_basic_package_version_file(cmake/CheckWarningConfigVersion.cmake
+    COMPATIBILITY SameMajorVersion ARCH_INDEPENDENT)
 
   install(
-    FILES
-      cmake/CheckWarning.cmake
+    FILES cmake/CheckWarning.cmake
       cmake/CheckWarningConfig.cmake
       ${CMAKE_CURRENT_BINARY_DIR}/cmake/CheckWarningConfigVersion.cmake
-    DESTINATION lib/cmake/CheckWarning
-  )
+    DESTINATION lib/cmake/CheckWarning)
 endif()
