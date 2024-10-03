@@ -63,6 +63,10 @@ message("Warning flags: ${FLAGS}")
 
 ## API Reference
 
+### `CHECK_WARNING_VERSION`
+
+This variable contains the version of the included [`CheckWarning.cmake`](./cmake/CheckWarning.cmake) module.
+
 ### `get_warning_flags`
 
 Retrieves warning flags based on the current compiler.
