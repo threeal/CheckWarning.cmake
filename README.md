@@ -52,6 +52,15 @@ add_library(lib lib.cpp)
 add_executable(main main.cpp)
 ```
 
+### Get Warning Flags
+
+To retrieve the warning flags without adding them to a target, use the `get_warning_flags` function.
+
+```cmake
+get_warning_flags(FLAGS)
+message("Warning flags: ${FLAGS}")
+```
+
 ## License
 
 This project is licensed under the terms of the [MIT License](./LICENSE).
