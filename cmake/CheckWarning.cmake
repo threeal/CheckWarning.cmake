@@ -20,6 +20,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+# This variable contains the version of the included `CheckWarning.cmake` module.
+set(CHECK_WARNING_VERSION 2.2.0)
+
 # Retrieves warning flags based on the current compiler.
 #
 # get_warning_flags(<output_var>)
