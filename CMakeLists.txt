@@ -30,7 +30,7 @@ endif()
 if(CHECK_WARNING_ENABLE_INSTALL)
   include(CMakePackageConfigHelpers)
   write_basic_package_version_file(
-    CheckWarningConfigVersion.cmake
+    cmake/CheckWarningConfigVersion.cmake
     COMPATIBILITY SameMajorVersion
   )
 
@@ -38,7 +38,7 @@ if(CHECK_WARNING_ENABLE_INSTALL)
     FILES
       cmake/CheckWarning.cmake
       cmake/CheckWarningConfig.cmake
-      ${CMAKE_CURRENT_BINARY_DIR}/CheckWarningConfigVersion.cmake
+      ${CMAKE_CURRENT_BINARY_DIR}/cmake/CheckWarningConfigVersion.cmake
     DESTINATION lib/cmake/CheckWarning
   )
 endif()
