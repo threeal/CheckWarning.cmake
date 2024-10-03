@@ -32,6 +32,7 @@ if(CHECK_WARNING_ENABLE_INSTALL)
   write_basic_package_version_file(
     cmake/CheckWarningConfigVersion.cmake
     COMPATIBILITY SameMajorVersion
+    ARCH_INDEPENDENT
   )
 
   install(
