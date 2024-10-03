@@ -9,20 +9,21 @@ project(
 )
 
 option(CHECK_WARNING_ENABLE_TESTS "Enable test targets.")
-option(CHECK_WARNING_ENABLE_INSTALL "Enable install targets."
-  "${PROJECT_IS_TOP_LEVEL}")
+option(CHECK_WARNING_ENABLE_INSTALL "Enable install targets." "${PROJECT_IS_TOP_LEVEL}")
+
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
+# Prefer system packages over the find modules provided by this project.
+if(NOT DEFINED CMAKE_FIND_PACKAGE_PREFER_CONFIG)
+  set(CMAKE_FIND_PACKAGE_PREFER_CONFIG TRUE)
+endif()
 
 include(cmake/CheckWarning.cmake)
 
 if(CHECK_WARNING_ENABLE_TESTS)
   enable_testing()
 
-  file(
-    DOWNLOAD https://github.com/threeal/assertion-cmake/releases/download/v1.0.0/Assertion.cmake
-      ${CMAKE_BINARY_DIR}/Assertion.cmake
-    EXPECTED_MD5 1d8ec589d6cc15772581bf77eb3873ff)
-  include(${CMAKE_BINARY_DIR}/Assertion.cmake)
-
+  find_package(Assertion 1.0.0 REQUIRED)
   assertion_add_test(test/check_warning.cmake)
 endif()
 
