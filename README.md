@@ -18,7 +18,7 @@ include(CheckWarning)
 Alternatively, you can use [CPM.cmake](https://github.com/cpm-cmake/CPM.cmake) to seamlessly integrate this module into your project.
 
 ```cmake
-cpmaddpackage(gh:threeal/CheckWarning.cmake@2.1.1)
+cpmaddpackage(gh:threeal/CheckWarning.cmake@2.2.0)
 ```
 
 ## Usage
@@ -50,6 +50,15 @@ add_check_warning()
 
 add_library(lib lib.cpp)
 add_executable(main main.cpp)
+```
+
+### Get Warning Flags
+
+To retrieve the warning flags without adding them to a target, use the `get_warning_flags` function.
+
+```cmake
+get_warning_flags(FLAGS)
+message("Warning flags: ${FLAGS}")
 ```
 
 ## License

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.21)
 
 project(
   CheckWarning
-  VERSION 2.1.1
+  VERSION 2.2.0
   DESCRIPTION "Check for compiler warnings in your CMake project"
   HOMEPAGE_URL https://github.com/threeal/CheckWarning.cmake
   LANGUAGES NONE)
@@ -24,6 +24,7 @@ if(CHECK_WARNING_ENABLE_TESTS)
 
   find_package(Assertion 1.0.0 REQUIRED)
   assertion_add_test(test/test_add_check_warning.cmake)
+  assertion_add_test(test/test_get_warning_flags.cmake)
   assertion_add_test(test/test_target_check_warning.cmake)
 endif()
 
