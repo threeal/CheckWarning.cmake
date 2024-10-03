@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.21)
 
 project(
   CheckWarning
-  VERSION 2.1.1
+  VERSION 2.2.0
   DESCRIPTION "Check for compiler warnings in your CMake project"
   HOMEPAGE_URL https://github.com/threeal/CheckWarning.cmake
   LANGUAGES NONE)
