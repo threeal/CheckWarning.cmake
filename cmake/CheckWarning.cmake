@@ -24,10 +24,13 @@
 # Arguments:
 #   - VAR: The variable for which to store the warning flags.
 function(get_warning_flags VAR)
-  if(MSVC)
+  if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     set("${VAR}" /WX /permissive- /W4 /EHsc PARENT_SCOPE)
-  else()
+  elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     set("${VAR}" -Werror -Wall -Wextra -Wpedantic PARENT_SCOPE)
+  else()
+    message(FATAL_ERROR "CheckWarning: Unsupported compiler for retrieving "
+      "warning flags: ${CMAKE_CXX_COMPILER_ID}")
   endif()
 endfunction()
 
