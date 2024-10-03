@@ -24,6 +24,7 @@ if(CHECK_WARNING_ENABLE_TESTS)
 
   find_package(Assertion 1.0.0 REQUIRED)
   assertion_add_test(test/test_add_check_warning.cmake)
+  assertion_add_test(test/test_get_warning_flags.cmake)
   assertion_add_test(test/test_target_check_warning.cmake)
 endif()
 
