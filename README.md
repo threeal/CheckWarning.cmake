@@ -1,31 +1,41 @@
 # CheckWarning.cmake
 
-CheckWarning.cmake is a [CMake](https://cmake.org) module that provides utility functions for checking compiler warnings during your project's build process.
-This module mainly contains two functions: a `target_check_warning` function that assists in checking all recommended warnings on a given target, and an `add_check_warning` function that behaves like `target_check_warning` but affects all targets globally in the directory.
+Check for compiler warnings in [CMake](https://cmake.org) projects.
 
-## Integration
+This module enables compiler warnings to be checked easily in CMake projects. By default, it enables all recommended warning flags on targets across different compilers, preventing users from having to manually specify warning flags to be enabled.
 
-### Including the Script File
+This module provides two utility functions for checking compiler warnings:
+- [`target_check_warning`](#target_check_warning): For checking compiler warnings on a single target.
+- [`add_check_warning`](#add_check_warning): For checking compiler warnings on all targets in the current directory.
 
-You can integrate this module into your project by including the [CheckWarning.cmake](./cmake/CheckWarning.cmake) file in your project.
+These functions enable all recommended warning flags on the targets and can optionally be set to treat the warnings as errors.
+
+## Key Features
+
+- Supports checking warnings on [MSVC](https://visualstudio.microsoft.com/vs/features/cplusplus/), [GNU](https://gcc.gnu.org/), and [Clang](https://clang.llvm.org/) compilers.
+- Optionally treats warnings as errors.
+- Simple syntax and easy integration.
+
+## Usage Guide
+
+### Module Integration
+
+The recommended way to integrate this module into a project is by downloading it during the project configuration using the [`file(DOWNLOAD)`](https://cmake.org/cmake/help/v3.21/command/file.html#download) function:
 
 ```cmake
-include(CheckWarning)
+file(
+  DOWNLOAD https://github.com/threeal/CheckWarning.cmake/releases/download/v3.0.0/CheckWarning.cmake
+    ${CMAKE_BINARY_DIR}/cmake/CheckWarning.cmake
+  EXPECTED_MD5 b1b3332832f834735fa1404e4f2e28bc)
+
+include(${CMAKE_BINARY_DIR}/cmake/CheckWarning.cmake)
 ```
 
-### Using CPM.cmake
+Alternatively, to support offline mode, this module can also be vendored directly into a project and included normally using the [`include`](https://cmake.org/cmake/help/v3.21/command/include.html) function.
 
-Alternatively, you can use [CPM.cmake](https://github.com/cpm-cmake/CPM.cmake) to seamlessly integrate this module into your project.
+### Check Warnings on Targets
 
-```cmake
-cpmaddpackage(gh:threeal/CheckWarning.cmake@3.0.0)
-```
-
-## Usage
-
-### Checking Warnings on a Target
-
-To enable all recommended warnings on a target, use the [`target_check_warning`](#target_check_warning) function.
+Use the [`target_check_warning`](#target_check_warning) function to check for compiler warnings on a single target.
 
 ```cmake
 add_executable(main main.cpp)
@@ -38,9 +48,7 @@ If the `TREAT_WARNINGS_AS_ERRORS` option is specified, it treats all warnings fr
 target_check_warning(main TREAT_WARNINGS_AS_ERRORS)
 ```
 
-### Checking Warnings Globally
-
-To enable all recommended warnings on all targets in the directory, use the [`add_check_warning`](#add_check_warning) function. This function behaves the same as the [`target_check_warning`](#target_check_warning) function.
+Alternatively, the [`add_check_warning`](#add_check_warning) function can be used to check for compiler warnings on all targets in the current directory.
 
 ```cmake
 add_check_warning(TREAT_WARNINGS_AS_ERRORS)
