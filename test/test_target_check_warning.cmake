@@ -15,13 +15,22 @@ section("it should generate the sample project")
     "cmake_minimum_required(VERSION 3.5)\n"
     "project(Sample LANGUAGES CXX)\n"
     "\n"
+    "include(${ASSERTION_LIST_FILE})\n"
+    "\n"
     "include(${CMAKE_CURRENT_LIST_DIR}/../cmake/CheckWarning.cmake)\n"
+    "get_warning_flags(WARNING_FLAGS)\n"
     "\n"
     "add_library(lib lib.cpp)\n"
     "target_check_warning(lib)\n"
     "\n"
+    "get_target_property(FLAGS lib COMPILE_OPTIONS)\n"
+    "assert(FLAGS STREQUAL WARNING_FLAGS)\n"
+    "\n"
     "add_executable(main main.cpp)\n"
-    "target_link_libraries(main PRIVATE lib)\n")
+    "target_link_libraries(main PRIVATE lib)\n"
+    "\n"
+    "get_target_property(FLAGS main COMPILE_OPTIONS)\n"
+    "assert(FLAGS STREQUAL \"FLAGS-NOTFOUND\")\n")
 endsection()
 
 section("it should build the sample project")
@@ -62,15 +71,27 @@ section("it should check for warnings only in an interface")
     "cmake_minimum_required(VERSION 3.5)\n"
     "project(Sample LANGUAGES CXX)\n"
     "\n"
+    "include(${ASSERTION_LIST_FILE})\n"
+    "\n"
     "include(${CMAKE_CURRENT_LIST_DIR}/../cmake/CheckWarning.cmake)\n"
+    "get_warning_flags(WARNING_FLAGS)\n"
     "\n"
     "add_library(iface INTERFACE)\n"
     "target_check_warning(iface)\n"
     "\n"
+    "get_target_property(FLAGS iface INTERFACE_COMPILE_OPTIONS)\n"
+    "assert(FLAGS STREQUAL WARNING_FLAGS)\n"
+    "\n"
     "add_library(lib lib.cpp)\n"
     "\n"
+    "get_target_property(FLAGS lib COMPILE_OPTIONS)\n"
+    "assert(FLAGS STREQUAL \"FLAGS-NOTFOUND\")\n"
+    "\n"
     "add_executable(main main.cpp)\n"
-    "target_link_libraries(main PRIVATE iface lib)\n")
+    "target_link_libraries(main PRIVATE iface lib)\n"
+    "\n"
+    "get_target_property(FLAGS main COMPILE_OPTIONS)\n"
+    "assert(FLAGS STREQUAL \"FLAGS-NOTFOUND\")\n")
 endsection()
 
 section("it should fail to build the sample project")
