@@ -98,13 +98,23 @@ endfunction()
 
 # Enables warning checks on all targets in the current directory.
 #
-# add_check_warning()
+# add_check_warning([TREAT_WARNINGS_AS_ERRORS])
 #
 # This function enables warning checks on all targets in the current directory
 # by appending warning flags from the `get_warning_flags` function to the
 # default compile options. It is equivalent to calling the `add_compile_options`
-# command using the warning flags.
+# command with the warning flags.
+#
+# If the `TREAT_WARNINGS_AS_ERRORS` option is specified, it will also append the
+# flag that treats warnings as errors.
 function(add_check_warning)
-  get_warning_flags(FLAGS TREAT_WARNINGS_AS_ERRORS)
+  cmake_parse_arguments(PARSE_ARGV 0 ARG TREAT_WARNINGS_AS_ERRORS "" "")
+
+  if(ARG_TREAT_WARNINGS_AS_ERRORS)
+    get_warning_flags(FLAGS TREAT_WARNINGS_AS_ERRORS)
+  else()
+    get_warning_flags(FLAGS)
+  endif()
+
   add_compile_options(${FLAGS})
 endfunction()

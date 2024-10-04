@@ -108,10 +108,12 @@ If the `TREAT_WARNINGS_AS_ERRORS` option is specified, it will also append the f
 Enables warning checks on all targets in the current directory.
 
 ```cmake
-add_check_warning()
+add_check_warning([TREAT_WARNINGS_AS_ERRORS])
 ```
 
-This function enables warning checks on all targets in the current directory by appending warning flags from the [`get_warning_flags`](#get_warning_flags) function to the default compile options. It is equivalent to calling the [`add_compile_options`](https://cmake.org/cmake/help/v3.21/command/add_compile_options.html) command using the warning flags.
+This function enables warning checks on all targets in the current directory by appending warning flags from the [`get_warning_flags`](#get_warning_flags) function to the default compile options. It is equivalent to calling the [`add_compile_options`](https://cmake.org/cmake/help/v3.21/command/add_compile_options.html) command with the warning flags.
+
+If the `TREAT_WARNINGS_AS_ERRORS` option is specified, it will also append the flag that treats warnings as errors.
 
 ## License
 
