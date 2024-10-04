@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 # This variable contains the version of the included `CheckWarning.cmake` module.
-set(CHECK_WARNING_VERSION 2.2.0)
+set(CHECK_WARNING_VERSION 3.0.0)
 
 # Retrieves warning flags based on the current compiler.
 #
