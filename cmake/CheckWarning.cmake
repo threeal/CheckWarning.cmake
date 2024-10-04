@@ -70,24 +70,30 @@ endfunction()
 
 # Enables warning checks on a specific target.
 #
-# target_check_warning(<target>)
+# target_check_warning(<target> [TREAT_WARNINGS_AS_ERRORS])
 #
 # This function enables warning checks on the `<target>` by appending warning
 # flags from the `get_warning_flags` function to the compile options of that
 # target. It is equivalent to calling the `target_compile_options` command on
-# the target using the warning flags.
+# the target with the warning flags.
+#
+# If the `TREAT_WARNINGS_AS_ERRORS` option is specified, it will also append the
+# flag that treats warnings as errors.
 function(target_check_warning TARGET)
-  # Determine if the target is an interface library or not.
-  get_target_property(TARGET_TYPE "${TARGET}" TYPE)
-  if(TARGET_TYPE STREQUAL INTERFACE_LIBRARY)
-    set(TYPE INTERFACE)
+  cmake_parse_arguments(PARSE_ARGV 1 ARG TREAT_WARNINGS_AS_ERRORS "" "")
+
+  if(ARG_TREAT_WARNINGS_AS_ERRORS)
+    get_warning_flags(FLAGS TREAT_WARNINGS_AS_ERRORS)
   else()
-    set(TYPE PRIVATE)
+    get_warning_flags(FLAGS)
   endif()
 
-  # Append warning flags to the compile options.
-  get_warning_flags(FLAGS TREAT_WARNINGS_AS_ERRORS)
-  target_compile_options("${TARGET}" "${TYPE}" ${FLAGS})
+  get_target_property(TARGET_TYPE "${TARGET}" TYPE)
+  if(TARGET_TYPE STREQUAL INTERFACE_LIBRARY)
+    target_compile_options("${TARGET}" INTERFACE ${FLAGS})
+  else()
+    target_compile_options("${TARGET}" PRIVATE ${FLAGS})
+  endif()
 endfunction()
 
 # Enables warning checks on all targets in the current directory.

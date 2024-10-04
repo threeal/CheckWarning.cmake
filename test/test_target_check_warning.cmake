@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE project)
 
+include(${CMAKE_CURRENT_LIST_DIR}/project_helper.cmake)
+
 section("it should generate the sample project")
   file(WRITE project/lib.cpp "void lib_main() {}\n")
 
@@ -12,16 +14,10 @@ section("it should generate the sample project")
     "}\n")
 
   file(WRITE project/CMakeLists.txt
-    "cmake_minimum_required(VERSION 3.5)\n"
-    "project(Sample LANGUAGES CXX)\n"
-    "\n"
-    "include(${ASSERTION_LIST_FILE})\n"
-    "\n"
-    "include(${CMAKE_CURRENT_LIST_DIR}/../cmake/CheckWarning.cmake)\n"
-    "get_warning_flags(WARNING_FLAGS TREAT_WARNINGS_AS_ERRORS)\n"
+    ${PROJECT_CMAKELISTS_HEADER_SRC}
     "\n"
     "add_library(lib lib.cpp)\n"
-    "target_check_warning(lib)\n"
+    "target_check_warning(lib \${WARNING_OPTIONS})\n"
     "\n"
     "get_target_property(FLAGS lib COMPILE_OPTIONS)\n"
     "assert(FLAGS STREQUAL WARNING_FLAGS)\n"
@@ -34,8 +30,8 @@ section("it should generate the sample project")
 endsection()
 
 section("it should build the sample project")
-  assert_execute_process("${CMAKE_COMMAND}" --fresh -S project -B project/build)
-  assert_execute_process("${CMAKE_COMMAND}" --build project/build)
+  assert_configure_project()
+  assert_build_project()
 endsection()
 
 section("it should add an unused variable to the main.cpp file")
@@ -50,8 +46,8 @@ section("it should add an unused variable to the main.cpp file")
 endsection()
 
 section("it should build the sample project")
-  assert_execute_process("${CMAKE_COMMAND}" --fresh -S project -B project/build)
-  assert_execute_process("${CMAKE_COMMAND}" --build project/build)
+  assert_configure_project()
+  assert_build_project()
 endsection()
 
 section("it should add an unused variable to the lib.cpp file")
@@ -62,22 +58,21 @@ section("it should add an unused variable to the lib.cpp file")
 endsection()
 
 section("it should fail to build the sample project")
-  assert_execute_process("${CMAKE_COMMAND}" --fresh -S project -B project/build)
-  assert_execute_process("${CMAKE_COMMAND}" --build project/build ERROR "")
+  assert_configure_project()
+  assert_build_project(EXPECT_FAIL)
+endsection()
+
+section("it should build the sample project if not treating warnings as errors")
+  assert_configure_project(NO_TREAT_WARNINGS_AS_ERRORS)
+  assert_build_project()
 endsection()
 
 section("it should check for warnings only in an interface")
   file(WRITE project/CMakeLists.txt
-    "cmake_minimum_required(VERSION 3.5)\n"
-    "project(Sample LANGUAGES CXX)\n"
-    "\n"
-    "include(${ASSERTION_LIST_FILE})\n"
-    "\n"
-    "include(${CMAKE_CURRENT_LIST_DIR}/../cmake/CheckWarning.cmake)\n"
-    "get_warning_flags(WARNING_FLAGS TREAT_WARNINGS_AS_ERRORS)\n"
+    ${PROJECT_CMAKELISTS_HEADER_SRC}
     "\n"
     "add_library(iface INTERFACE)\n"
-    "target_check_warning(iface)\n"
+    "target_check_warning(iface \${WARNING_OPTIONS})\n"
     "\n"
     "get_target_property(FLAGS iface INTERFACE_COMPILE_OPTIONS)\n"
     "assert(FLAGS STREQUAL WARNING_FLAGS)\n"
@@ -95,8 +90,13 @@ section("it should check for warnings only in an interface")
 endsection()
 
 section("it should fail to build the sample project")
-  assert_execute_process("${CMAKE_COMMAND}" --fresh -S project -B project/build)
-  assert_execute_process("${CMAKE_COMMAND}" --build project/build ERROR "")
+  assert_configure_project()
+  assert_build_project(EXPECT_FAIL)
+endsection()
+
+section("it should build the sample project if not treating warnings as errors")
+  assert_configure_project(NO_TREAT_WARNINGS_AS_ERRORS)
+  assert_build_project()
 endsection()
 
 section("it should remove the unused variable from the main.cpp file")
@@ -110,8 +110,8 @@ section("it should remove the unused variable from the main.cpp file")
 endsection()
 
 section("it should build the sample project")
-  assert_execute_process("${CMAKE_COMMAND}" --fresh -S project -B project/build)
-  assert_execute_process("${CMAKE_COMMAND}" --build project/build)
+  assert_configure_project()
+  assert_build_project()
 endsection()
 
 file(REMOVE_RECURSE project)
