@@ -25,28 +25,25 @@ cpmaddpackage(gh:threeal/CheckWarning.cmake@3.0.0)
 
 ### Checking Warnings on a Target
 
-To enable all recommended warnings on a target and treat them as errors, use the `target_check_warning` function. This will cause the build process to fail when a warning is violated.
+To enable all recommended warnings on a target, use the [`target_check_warning`](#target_check_warning) function.
 
 ```cmake
 add_executable(main main.cpp)
 target_check_warning(main)
 ```
 
-### Ignoring Specific Warnings on a Target
-
-You can use the `target_compile_options` function to ignore specific warnings on a target.
+If the `TREAT_WARNINGS_AS_ERRORS` option is specified, it treats all warnings from the target as errors. This will cause the build process to fail when a warning is triggered.
 
 ```cmake
-target_check_warning(main)
-target_compile_options(main PRIVATE -Wno-unused-variable)
+target_check_warning(main TREAT_WARNINGS_AS_ERRORS)
 ```
 
 ### Checking Warnings Globally
 
-To enable all recommended warnings on all targets in the directory, use the `add_check_warning` function. This function behaves the same as the `target_check_warning` function.
+To enable all recommended warnings on all targets in the directory, use the [`add_check_warning`](#add_check_warning) function. This function behaves the same as the [`target_check_warning`](#target_check_warning) function.
 
 ```cmake
-add_check_warning()
+add_check_warning(TREAT_WARNINGS_AS_ERRORS)
 
 add_library(lib lib.cpp)
 add_executable(main main.cpp)
@@ -54,11 +51,17 @@ add_executable(main main.cpp)
 
 ### Get Warning Flags
 
-To retrieve the warning flags without adding them to a target, use the `get_warning_flags` function.
+To retrieve the warning flags without adding them to a target, use the [`get_warning_flags`](#get_warning_flags) function.
 
 ```cmake
 get_warning_flags(FLAGS)
 message("Warning flags: ${FLAGS}")
+```
+
+Use the `TREAT_WARNINGS_AS_ERRORS` option to also include the flag that treats warnings as errors.
+
+```cmake
+get_warning_flags(FLAGS TREAT_WARNINGS_AS_ERRORS)
 ```
 
 ## API Reference
