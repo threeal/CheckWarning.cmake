@@ -1,24 +1,45 @@
 include("${CMAKE_CURRENT_LIST_DIR}/../cmake/CheckWarning.cmake")
 
-section("it should retrieve warning flags for MSVC")
+section("retrieve warning flags for MSVC")
   set(CMAKE_CXX_COMPILER_ID MSVC)
 
-  get_warning_flags(FLAGS)
-  assert("${FLAGS}" STREQUAL "/WX;/permissive-;/W4;/EHsc")
+  section("it should retrieve warning flags")
+    get_warning_flags(FLAGS)
+    assert("${FLAGS}" STREQUAL "/permissive-;/W4;/EHsc")
+  endsection()
+
+  section("it should retrieve warning flags if treating warnings as errors")
+    get_warning_flags(FLAGS TREAT_WARNINGS_AS_ERRORS)
+    assert("${FLAGS}" STREQUAL "/permissive-;/W4;/EHsc;/WX")
+  endsection()
 endsection()
 
-section("it should retrieve warning flags for GNU")
+section("retrieve warning flags for GNU")
   set(CMAKE_CXX_COMPILER_ID GNU)
 
-  get_warning_flags(FLAGS)
-  assert("${FLAGS}" STREQUAL "-Werror;-Wall;-Wextra;-Wpedantic")
+  section("it should retrieve warning flags")
+    get_warning_flags(FLAGS)
+    assert("${FLAGS}" STREQUAL "-Wall;-Wextra;-Wpedantic")
+  endsection()
+
+  section("it should retrieve warning flags if treating warnings as errors")
+    get_warning_flags(FLAGS TREAT_WARNINGS_AS_ERRORS)
+    assert("${FLAGS}" STREQUAL "-Wall;-Wextra;-Wpedantic;-Werror")
+  endsection()
 endsection()
 
-section("it should retrieve warning flags for Clang")
+section("retrieve warning flags for Clang")
   set(CMAKE_CXX_COMPILER_ID AppleClang)
 
-  get_warning_flags(FLAGS)
-  assert("${FLAGS}" STREQUAL "-Werror;-Wall;-Wextra;-Wpedantic")
+  section("it should retrieve warning flags")
+    get_warning_flags(FLAGS)
+    assert("${FLAGS}" STREQUAL "-Wall;-Wextra;-Wpedantic")
+  endsection()
+
+  section("it should retrieve warning flags if treating warnings as errors")
+    get_warning_flags(FLAGS TREAT_WARNINGS_AS_ERRORS)
+    assert("${FLAGS}" STREQUAL "-Wall;-Wextra;-Wpedantic;-Werror")
+  endsection()
 endsection()
 
 section("it should fail to retrieve warning flags for unsupported compilers")

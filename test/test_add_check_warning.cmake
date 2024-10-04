@@ -18,7 +18,7 @@ section("it should generate the sample project")
     "include(${ASSERTION_LIST_FILE})\n"
     "\n"
     "include(${CMAKE_CURRENT_LIST_DIR}/../cmake/CheckWarning.cmake)\n"
-    "get_warning_flags(WARNING_FLAGS)\n"
+    "get_warning_flags(WARNING_FLAGS TREAT_WARNINGS_AS_ERRORS)\n"
     "\n"
     "add_library(lib lib.cpp)\n"
     "\n"

@@ -72,17 +72,24 @@ This variable contains the version of the included [`CheckWarning.cmake`](./cmak
 Retrieves warning flags based on the current compiler.
 
 ```cmake
-get_warning_flags(<output_var>)
+get_warning_flags(<output_var> [TREAT_WARNINGS_AS_ERRORS])
 ```
 
-This function retrieves the warning flags for a specific compiler and saves them to a variable named `<output_var>`. The function determines the current compiler using the [`CMAKE_<LANG>_COMPILER_ID`](https://cmake.org/cmake/help/v3.21/variable/CMAKE_LANG_COMPILER_ID.html) variable and retrieves the warning flags for that compiler, as specified in the following table:
+This function retrieves the warning flags for a specific compiler and saves them to the variable `<output_var>`. It determines the current compiler using the [`CMAKE_<LANG>_COMPILER_ID`](https://cmake.org/cmake/help/v3.21/variable/CMAKE_LANG_COMPILER_ID.html) variable and retrieves the corresponding warning flags, as specified in the table below:
 
-| Compiler     | Warning Flags                      |
-| ------------ | ---------------------------------- |
-| MSVC         | `/WX /permissive- /W4 /EHsc`       |
-| GNU or Clang | `-Werror -Wall -Wextra -Wpedantic` |
+| Compiler     | Warning Flags              |
+| ------------ | -------------------------- |
+| MSVC         | `/permissive- /W4 /EHsc`   |
+| GNU or Clang | `-Wall -Wextra -Wpedantic` |
 
-For compilers not specified in the table above, this function will send a fatal error message explaining that it does not support that compiler.
+If the `TREAT_WARNINGS_AS_ERRORS` option is specified, it will also append the flag that treats warnings as errors, as specified in the table below:
+
+| Compiler     | Flag      |
+| ------------ | --------- |
+| MSVC         | `/WX`     |
+| GNU or Clang | `-Werror` |
+
+For compilers not listed in the table above, this function will trigger a fatal error indicating that the compiler is unsupported.
 
 ### `target_check_warning`
 

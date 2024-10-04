@@ -25,29 +25,47 @@ set(CHECK_WARNING_VERSION 2.2.0)
 
 # Retrieves warning flags based on the current compiler.
 #
-# get_warning_flags(<output_var>)
+# get_warning_flags(<output_var> [TREAT_WARNINGS_AS_ERRORS])
 #
 # This function retrieves the warning flags for a specific compiler and saves
-# them to a variable named `<output_var>`. The function determines the current
-# compiler using the `CMAKE_<LANG>_COMPILER_ID` variable and retrieves the
-# warning flags for that compiler, as specified in the following table:
+# them to the variable `<output_var>`. It determines the current compiler using
+# the `CMAKE_<LANG>_COMPILER_ID` variable and retrieves the corresponding
+# warning flags, as specified in the table below:
 #
-# | Compiler     | Warning Flags                      |
-# | ------------ | ---------------------------------- |
-# | MSVC         | `/WX /permissive- /W4 /EHsc`       |
-# | GNU or Clang | `-Werror -Wall -Wextra -Wpedantic` |
+# | Compiler     | Warning Flags              |
+# | ------------ | -------------------------- |
+# | MSVC         | `/permissive- /W4 /EHsc`   |
+# | GNU or Clang | `-Wall -Wextra -Wpedantic` |
 #
-# For compilers not specified in the table above, this function will send a
-# fatal error message explaining that it does not support that compiler.
+# If the `TREAT_WARNINGS_AS_ERRORS` option is specified, it will also append the
+# flag that treats warnings as errors, as specified in the table below:
+#
+# | Compiler     | Flag      |
+# | ------------ | --------- |
+# | MSVC         | `/WX`     |
+# | GNU or Clang | `-Werror` |
+#
+# For compilers not listed in the table above, this function will trigger a
+# fatal error indicating that the compiler is unsupported.
 function(get_warning_flags OUTPUT_VAR)
+  cmake_parse_arguments(PARSE_ARGV 1 ARG TREAT_WARNINGS_AS_ERRORS "" "")
+
   if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-    set("${OUTPUT_VAR}" /WX /permissive- /W4 /EHsc PARENT_SCOPE)
+    set(FLAGS /permissive- /W4 /EHsc)
+    if(ARG_TREAT_WARNINGS_AS_ERRORS)
+      list(APPEND FLAGS /WX)
+    endif()
   elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-    set("${OUTPUT_VAR}" -Werror -Wall -Wextra -Wpedantic PARENT_SCOPE)
+    set(FLAGS -Wall -Wextra -Wpedantic)
+    if(ARG_TREAT_WARNINGS_AS_ERRORS)
+      list(APPEND FLAGS -Werror)
+    endif()
   else()
     message(FATAL_ERROR "CheckWarning: Unsupported compiler for retrieving "
       "warning flags: ${CMAKE_CXX_COMPILER_ID}")
   endif()
+
+  set("${OUTPUT_VAR}" ${FLAGS} PARENT_SCOPE)
 endfunction()
 
 # Enables warning checks on a specific target.
@@ -68,7 +86,7 @@ function(target_check_warning TARGET)
   endif()
 
   # Append warning flags to the compile options.
-  get_warning_flags(FLAGS)
+  get_warning_flags(FLAGS TREAT_WARNINGS_AS_ERRORS)
   target_compile_options("${TARGET}" "${TYPE}" ${FLAGS})
 endfunction()
 
@@ -81,6 +99,6 @@ endfunction()
 # default compile options. It is equivalent to calling the `add_compile_options`
 # command using the warning flags.
 function(add_check_warning)
-  get_warning_flags(FLAGS)
+  get_warning_flags(FLAGS TREAT_WARNINGS_AS_ERRORS)
   add_compile_options(${FLAGS})
 endfunction()
