@@ -26,7 +26,7 @@ The recommended way to integrate this module into a project is by downloading it
 file(
   DOWNLOAD https://github.com/threeal/CheckWarning.cmake/releases/download/v3.0.1/CheckWarning.cmake
     ${CMAKE_BINARY_DIR}/cmake/CheckWarning.cmake
-  EXPECTED_MD5 6783b3d6de7e0d35a50dfd06d4374159)
+  EXPECTED_MD5 313febde14a2d481a44fee53a7e55238)
 
 include(${CMAKE_BINARY_DIR}/cmake/CheckWarning.cmake)
 ```
