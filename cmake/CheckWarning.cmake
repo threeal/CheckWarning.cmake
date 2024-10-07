@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 # This variable contains the version of the included `CheckWarning.cmake` module.
-set(CHECK_WARNING_VERSION 3.0.0)
+set(CHECK_WARNING_VERSION 3.0.1)
 
 # Retrieves warning flags based on the current compiler.
 #
@@ -50,19 +50,25 @@ set(CHECK_WARNING_VERSION 3.0.0)
 function(get_warning_flags OUTPUT_VAR)
   cmake_parse_arguments(PARSE_ARGV 1 ARG TREAT_WARNINGS_AS_ERRORS "" "")
 
-  if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+  if(DEFINED CMAKE_CXX_SIMULATE_ID AND "${CMAKE_CXX_SIMULATE_ID}")
+    set(COMPILER_ID "${CMAKE_CXX_SIMULATE_ID}")
+  else()
+    set(COMPILER_ID "${CMAKE_CXX_COMPILER_ID}")
+  endif()
+
+  if(COMPILER_ID STREQUAL "MSVC")
     set(FLAGS /permissive- /W4 /EHsc)
     if(ARG_TREAT_WARNINGS_AS_ERRORS)
       list(APPEND FLAGS /WX)
     endif()
-  elseif(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+  elseif(COMPILER_ID MATCHES "GNU|Clang")
     set(FLAGS -Wall -Wextra -Wpedantic)
     if(ARG_TREAT_WARNINGS_AS_ERRORS)
       list(APPEND FLAGS -Werror)
     endif()
   else()
     message(FATAL_ERROR "CheckWarning: Unsupported compiler for retrieving "
-      "warning flags: ${CMAKE_CXX_COMPILER_ID}")
+      "warning flags: ${COMPILER_ID}")
   endif()
 
   set("${OUTPUT_VAR}" ${FLAGS} PARENT_SCOPE)
