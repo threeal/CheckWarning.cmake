@@ -21,32 +21,36 @@
 # SOFTWARE.
 
 # This variable contains the version of the included `CheckWarning.cmake` module.
-set(CHECK_WARNING_VERSION 3.0.1)
+set(CHECK_WARNING_VERSION 3.1.0)
 
 # Retrieves warning flags based on the current compiler.
 #
 # get_warning_flags(<output_var> [TREAT_WARNINGS_AS_ERRORS])
 #
-# This function retrieves the warning flags for a specific compiler and saves
-# them to the variable `<output_var>`. It determines the current compiler using
-# the `CMAKE_<LANG>_COMPILER_ID` variable and retrieves the corresponding
-# warning flags, as specified in the table below:
+# This function retrieves the warning flags for the current compiler and saves
+# them to the variable `<output_var>`. It determines the compiler using the
+# `CMAKE_CXX_COMPILER_ID` variable and retrieves the corresponding warning
+# flags, as shown in the table below:
 #
 # | Compiler     | Warning Flags              |
 # | ------------ | -------------------------- |
 # | MSVC         | `/permissive- /W4 /EHsc`   |
 # | GNU or Clang | `-Wall -Wextra -Wpedantic` |
 #
-# If the `TREAT_WARNINGS_AS_ERRORS` option is specified, it will also append the
-# flag that treats warnings as errors, as specified in the table below:
+# If the `TREAT_WARNINGS_AS_ERRORS` option is specified, it appends the flag
+# that treats warnings as errors, as shown in the table below:
 #
 # | Compiler     | Flag      |
 # | ------------ | --------- |
 # | MSVC         | `/WX`     |
 # | GNU or Clang | `-Werror` |
 #
+# If the compiler is simulating another compiler, determined by the existence of
+# the `CMAKE_CXX_SIMULATE_ID` variable, it will use that variable to determine
+# the warning flags.
+#
 # For compilers not listed in the table above, this function will trigger a
-# fatal error indicating that the compiler is unsupported.
+# fatal error, indicating that the compiler is unsupported.
 function(get_warning_flags OUTPUT_VAR)
   cmake_parse_arguments(PARSE_ARGV 1 ARG TREAT_WARNINGS_AS_ERRORS "" "")
 

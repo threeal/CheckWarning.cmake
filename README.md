@@ -24,9 +24,9 @@ The recommended way to integrate this module into a project is by downloading it
 
 ```cmake
 file(
-  DOWNLOAD https://github.com/threeal/CheckWarning.cmake/releases/download/v3.0.1/CheckWarning.cmake
+  DOWNLOAD https://github.com/threeal/CheckWarning.cmake/releases/download/v3.1.0/CheckWarning.cmake
     ${CMAKE_BINARY_DIR}/cmake/CheckWarning.cmake
-  EXPECTED_MD5 313febde14a2d481a44fee53a7e55238)
+  EXPECTED_MD5 0bebb9832bfce552de734d1b24e0287c)
 
 include(${CMAKE_BINARY_DIR}/cmake/CheckWarning.cmake)
 ```
@@ -86,21 +86,23 @@ Retrieves warning flags based on the current compiler.
 get_warning_flags(<output_var> [TREAT_WARNINGS_AS_ERRORS])
 ```
 
-This function retrieves the warning flags for a specific compiler and saves them to the variable `<output_var>`. It determines the current compiler using the [`CMAKE_<LANG>_COMPILER_ID`](https://cmake.org/cmake/help/v3.21/variable/CMAKE_LANG_COMPILER_ID.html) variable and retrieves the corresponding warning flags, as specified in the table below:
+This function retrieves the warning flags for the current compiler and saves them to the variable `<output_var>`. It determines the compiler using the [`CMAKE_CXX_COMPILER_ID`](https://cmake.org/cmake/help/v3.21/variable/CMAKE_LANG_COMPILER_ID.html) variable and retrieves the corresponding warning flags, as shown in the table below:
 
 | Compiler     | Warning Flags              |
 | ------------ | -------------------------- |
 | MSVC         | `/permissive- /W4 /EHsc`   |
 | GNU or Clang | `-Wall -Wextra -Wpedantic` |
 
-If the `TREAT_WARNINGS_AS_ERRORS` option is specified, it will also append the flag that treats warnings as errors, as specified in the table below:
+If the `TREAT_WARNINGS_AS_ERRORS` option is specified, it appends the flag that treats warnings as errors, as shown in the table below:
 
 | Compiler     | Flag      |
 | ------------ | --------- |
 | MSVC         | `/WX`     |
 | GNU or Clang | `-Werror` |
 
-For compilers not listed in the table above, this function will trigger a fatal error indicating that the compiler is unsupported.
+If the compiler is simulating another compiler, determined by the existence of the [`CMAKE_CXX_SIMULATE_ID`](https://cmake.org/cmake/help/v3.21/variable/CMAKE_LANG_SIMULATE_ID.html) variable, it will use that variable to determine the warning flags.
+
+For compilers not listed in the table above, this function will trigger a fatal error, indicating that the compiler is unsupported.
 
 ### `target_check_warning`
 
