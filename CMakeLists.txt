@@ -29,13 +29,16 @@ if(CHECK_WARNING_ENABLE_TESTS)
 endif()
 
 if(CHECK_WARNING_ENABLE_INSTALL)
+  file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/cmake/CheckWarningConfig.cmake
+    "include(\${CMAKE_CURRENT_LIST_DIR}/CheckWarning.cmake)\n")
+
   include(CMakePackageConfigHelpers)
   write_basic_package_version_file(cmake/CheckWarningConfigVersion.cmake
     COMPATIBILITY SameMajorVersion ARCH_INDEPENDENT)
 
   install(
     FILES cmake/CheckWarning.cmake
-      cmake/CheckWarningConfig.cmake
+      ${CMAKE_CURRENT_BINARY_DIR}/cmake/CheckWarningConfig.cmake
       ${CMAKE_CURRENT_BINARY_DIR}/cmake/CheckWarningConfigVersion.cmake
     DESTINATION lib/cmake/CheckWarning)
 endif()
