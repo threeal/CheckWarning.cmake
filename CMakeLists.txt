@@ -23,7 +23,11 @@ if(CHECK_WARNING_ENABLE_TESTS)
   enable_testing()
 
   find_package(Assertion 2.0.0 REQUIRED)
+
   list(APPEND CMAKE_SCRIPT_TEST_DEFINITIONS CMAKE_MODULE_PATH)
+  if(DEFINED CMAKE_CXX_COMPILER)
+   list(APPEND CMAKE_SCRIPT_TEST_DEFINITIONS CMAKE_CXX_COMPILER)
+  endif()
 
   add_cmake_script_test(test/test_add_check_warning.cmake)
   add_cmake_script_test(test/test_get_warning_flags.cmake)
