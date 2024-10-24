@@ -29,6 +29,7 @@ jobs:
       - name: Configure Project
         uses: threeal/cmake-action@v2.0.0
         with:
+          generator: Unix Makefiles
           cxx-compiler: ${{ matrix.compiler }}
           options: CHECK_WARNING_ENABLE_TESTS=ON
           run-build: false
@@ -36,5 +37,4 @@ jobs:
       - name: Test Project
         uses: threeal/ctest-action@v1.1.0
         with:
-          build-config: debug
           verbose: true
