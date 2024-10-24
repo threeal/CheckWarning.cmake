@@ -25,6 +25,10 @@ set(PROJECT_CMAKELISTS_HEADER_SRC
 # configures the build without treating warnings as errors.
 function(assert_configure_project)
   cmake_parse_arguments(PARSE_ARGV 0 ARG NO_TREAT_WARNINGS_AS_ERRORS "" "")
+  if(DEFINED CMAKE_CXX_COMPILER)
+    message("Compiling with: ${CMAKE_CXX_COMPILER}")
+    list(APPEND ARGS -D CMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER})
+  endif()
   if(ARG_NO_TREAT_WARNINGS_AS_ERRORS)
     list(APPEND ARGS -D TREAT_WARNINGS_AS_ERRORS=OFF)
   endif()
