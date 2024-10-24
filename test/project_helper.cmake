@@ -1,3 +1,5 @@
+include(Assertion RESULT_VARIABLE ASSERTION_LIST_FILE)
+
 # This variable contains the header source files for the sample project's
 # `CMakeLists.txt` file.
 set(PROJECT_CMAKELISTS_HEADER_SRC
@@ -10,8 +12,8 @@ set(PROJECT_CMAKELISTS_HEADER_SRC
   "endif()\n"
   "\n"
   "include(${ASSERTION_LIST_FILE})\n"
-  "\n"
   "include(${CMAKE_CURRENT_LIST_DIR}/../cmake/CheckWarning.cmake)\n"
+  "\n"
   "get_warning_flags(WARNING_FLAGS \${WARNING_OPTIONS})\n")
 
 # Asserts configuring the sample project build.
@@ -40,7 +42,7 @@ endfunction()
 function(assert_build_project)
   cmake_parse_arguments(PARSE_ARGV 0 ARG EXPECT_FAIL "" "")
   if(ARG_EXPECT_FAIL)
-    list(APPEND ARGS ERROR .*)
+    list(APPEND ARGS EXPECT_FAIL)
   endif()
   assert_execute_process("${CMAKE_COMMAND}" --build project/build ${ARGS})
 endfunction()

@@ -1,3 +1,6 @@
+cmake_minimum_required(VERSION 3.21)
+
+include(Assertion)
 include("${CMAKE_CURRENT_LIST_DIR}/../cmake/CheckWarning.cmake")
 
 section("retrieve warning flags for MSVC")
@@ -64,8 +67,6 @@ section("it should fail to retrieve warning flags for unsupported compilers")
   set(CMAKE_CXX_COMPILER_ID unsupported)
   set(CMAKE_CXX_SIMULATE_ID "")
 
-  assert_fatal_error(
-    CALL get_warning_flags FLAGS
-    MESSAGE "CheckWarning: Unsupported compiler for retrieving "
-      "warning flags: unsupported")
+  assert_call(get_warning_flags FLAGS EXPECT_ERROR STREQUAL
+    "CheckWarning: Unsupported compiler for retrieving warning flags: unsupported")
 endsection()

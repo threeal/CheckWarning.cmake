@@ -22,10 +22,12 @@ include(cmake/CheckWarning.cmake)
 if(CHECK_WARNING_ENABLE_TESTS)
   enable_testing()
 
-  find_package(Assertion 1.0.0 REQUIRED)
-  assertion_add_test(test/test_add_check_warning.cmake)
-  assertion_add_test(test/test_get_warning_flags.cmake)
-  assertion_add_test(test/test_target_check_warning.cmake)
+  find_package(Assertion 2.0.0 REQUIRED)
+  list(APPEND CMAKE_SCRIPT_TEST_DEFINITIONS CMAKE_MODULE_PATH)
+
+  add_cmake_script_test(test/test_add_check_warning.cmake)
+  add_cmake_script_test(test/test_get_warning_flags.cmake)
+  add_cmake_script_test(test/test_target_check_warning.cmake)
 endif()
 
 if(CHECK_WARNING_ENABLE_INSTALL)
