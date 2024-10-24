@@ -47,4 +47,7 @@ if(CHECK_WARNING_ENABLE_INSTALL)
       ${CMAKE_CURRENT_BINARY_DIR}/cmake/CheckWarningConfig.cmake
       ${CMAKE_CURRENT_BINARY_DIR}/cmake/CheckWarningConfigVersion.cmake
     DESTINATION lib/cmake/CheckWarning)
+
+  set(CPACK_PACKAGE_FILE_NAME "${PROJECT_NAME}")
+  include(CPack)
 endif()
