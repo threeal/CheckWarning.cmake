@@ -10,14 +10,14 @@ project(
 option(CHECK_WARNING_ENABLE_TESTS "Enable test targets.")
 option(CHECK_WARNING_ENABLE_INSTALL "Enable install targets." "${PROJECT_IS_TOP_LEVEL}")
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+list(PREPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 # Prefer system packages over the find modules provided by this project.
 if(NOT DEFINED CMAKE_FIND_PACKAGE_PREFER_CONFIG)
   set(CMAKE_FIND_PACKAGE_PREFER_CONFIG TRUE)
 endif()
 
-include(cmake/CheckWarning.cmake)
+include(CheckWarning)
 
 if(CHECK_WARNING_ENABLE_TESTS)
   enable_testing()
@@ -36,7 +36,8 @@ endif()
 
 if(CHECK_WARNING_ENABLE_INSTALL)
   file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/cmake/CheckWarningConfig.cmake
-    "include(\${CMAKE_CURRENT_LIST_DIR}/CheckWarning.cmake)\n")
+    "list(PREPEND CMAKE_MODULE_PATH \${CMAKE_CURRENT_LIST_DIR})\n"
+    "include(CheckWarning)\n")
 
   include(CMakePackageConfigHelpers)
   write_basic_package_version_file(cmake/CheckWarningConfigVersion.cmake

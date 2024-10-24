@@ -1,4 +1,5 @@
 include(Assertion RESULT_VARIABLE ASSERTION_LIST_FILE)
+include(CheckWarning RESULT_VARIABLE CHECK_WARNING_LIST_FILE)
 
 # This variable contains the header source files for the sample project's
 # `CMakeLists.txt` file.
@@ -12,7 +13,7 @@ set(PROJECT_CMAKELISTS_HEADER_SRC
   "endif()\n"
   "\n"
   "include(${ASSERTION_LIST_FILE})\n"
-  "include(${CMAKE_CURRENT_LIST_DIR}/../cmake/CheckWarning.cmake)\n"
+  "include(${CHECK_WARNING_LIST_FILE})\n"
   "\n"
   "get_warning_flags(WARNING_FLAGS \${WARNING_OPTIONS})\n")
 
