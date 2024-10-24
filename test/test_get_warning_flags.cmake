@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 
 include(Assertion)
-include("${CMAKE_CURRENT_LIST_DIR}/../cmake/CheckWarning.cmake")
+include(CheckWarning)
 
 section("retrieve warning flags for MSVC")
   set(CMAKE_CXX_COMPILER_ID MSVC)

@@ -1,11 +1,9 @@
-file(
-  DOWNLOAD https://github.com/threeal/assertion-cmake/releases/download/v2.0.0/Assertion.cmake
-    ${CMAKE_BINARY_DIR}/cmake/Assertion.cmake
-  EXPECTED_MD5 5ebe475aee6fc5660633152f815ce9f6)
-include(${CMAKE_BINARY_DIR}/cmake/Assertion.cmake)
+set(DOWNLOAD_URL https://github.com/threeal/assertion-cmake/releases/download)
+file(DOWNLOAD ${DOWNLOAD_URL}/v${Assertion_FIND_VERSION}/Assertion.tar.gz
+  ${CMAKE_BINARY_DIR}/_deps/Assertion.tar.gz)
 
-include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(
-  Assertion REQUIRED_VARS ASSERTION_VERSION VERSION_VAR ASSERTION_VERSION)
+file(ARCHIVE_EXTRACT INPUT ${CMAKE_BINARY_DIR}/_deps/Assertion.tar.gz
+  DESTINATION ${CMAKE_BINARY_DIR}/_deps)
 
-list(PREPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR}/cmake)
+include(CMakeFindDependencyMacro)
+find_dependency(Assertion CONFIG PATHS ${CMAKE_BINARY_DIR}/_deps)
